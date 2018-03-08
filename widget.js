@@ -165,7 +165,7 @@ cprequire_test(["inline:com-chilipeppr-widget-gcode"], function (gcode) {
     //testJumpToLine();
     
     // force widget to set width to test css
-    $('#com-chilipeppr-widget-gcodeviewer').css('width', '350px');
+    $('#com-chilipeppr-widget-gcodelog').css('width', '350px');
     $('body').css('padding', '20px');
     
     // test out the /onPlay and interrupting it
@@ -565,14 +565,14 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
                         console.log("we got a timeMinsSum:", lastLine.p2.timeMinsSum);
                         var estDurMins = lastLine.p2.timeMinsSum;
                         var str = this.toHHMMSS(estDurMins * 60); // expect seconds
-                        $('#com-chilipeppr-widget-gcodeviewer #gcode-time-est').text(str);
+                        $('#com-chilipeppr-widget-gcodelog #gcode-time-est').text(str);
                     }
                 }
             });
         },
         setupStatusSteps: function() {
             var html = 
-                "<div id=\"com-chilipeppr-widget-gcodeviewer-popover-steps\" >Your Gcode moves through 5 steps from ChiliPeppr all the way through execution." +
+                "<div id=\"com-chilipeppr-widget-gcodelog-popover-steps\" >Your Gcode moves through 5 steps from ChiliPeppr all the way through execution." +
                 "<table class=\"table table-condensed table-striped\"><tr><th>Step&nbsp;</th><th>Status</th><th>Description</th></tr>" + 
                 "<tr><td>1</td><td><span class=\"glyphicon glyphicon-ok gcode-sent\"></span> Sent</td><td>Your Gcode has been sent to the Serial Port JSON Server by the Serial Port Widget.</td></tr>" + 
                 "<tr><td>2</td><td><span class=\"glyphicon glyphicon-ok gcode-queued\"></span> Queued</td><td>Gcode is queued inside the Serial Port JSON Server and waiting to be sent to the CNC controller's serial buffer.</td></tr>" + 
@@ -581,7 +581,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
                 "<tr><td>5</td><td><span class=\"glyphicon glyphicon-ok gcode-executed\"></span> Executed</td><td>Optional. The CNC controller tells us that your Gcode was actually executed. This is the final step. On controllers like TinyG this data only comes back if line numbers are in your Gcode.</td></tr>" +
                 "<tr><td>6</td><td><span class=\"glyphicon glyphicon-ok gcode-error\"></span> Error/Unsupported Command</td><td>Optional. The CNC controller failed to execute the line of gcode.  This could indicate a problem with your gcode syntax, or that your CNC controller does not understand a particular gcode command.</td></tr>" +
                 "</table></div>";
-            $("#com-chilipeppr-widget-gcodeviewer .stats-hdr").popover({
+            $("#com-chilipeppr-widget-gcodelog .stats-hdr").popover({
                 content: html
             })
             .on("show.bs.popover", function(){ $(this).data("bs.popover").tip().css("max-width", "600px"); });
@@ -1085,7 +1085,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
 
             // chevron hide body
             var that = this;
-            $('#com-chilipeppr-widget-gcodeviewer .hidebody').click(function(evt) {
+            $('#com-chilipeppr-widget-gcodelog .hidebody').click(function(evt) {
                 console.log("hide/unhide body");
                 if ($('#com-chilipeppr-widget-gcode-body-2col').hasClass('hidden')) {
                     // it's hidden, unhide
@@ -1105,7 +1105,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
             $('#com-chilipeppr-widget-gcode-btnoptions').click(this.showOptionsModal.bind(this));
 
             // setup planner indicator icon
-            $('#com-chilipeppr-widget-gcodeviewer div.plannerpause').popover({
+            $('#com-chilipeppr-widget-gcodelog div.plannerpause').popover({
                 html: true,
                 delay: 200,
                 animation: true,
@@ -1124,7 +1124,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
         onPlannerPause: function() {
             console.log("gcode being asked to pause.");
             if (this.pauseBtnIcon == null)
-                this.pauseBtnIcon = $('#com-chilipeppr-widget-gcodeviewer div.plannerpause');
+                this.pauseBtnIcon = $('#com-chilipeppr-widget-gcodelog div.plannerpause');
 
             if (!this.isPausedByPlanner) {
                 // we are not paused, so go ahead and pause
@@ -1138,7 +1138,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
         onPlannerResume: function() {
             console.log("gcode being asked to resume.");
             if (this.pauseBtnIcon == null)
-                this.pauseBtnIcon = $('#com-chilipeppr-widget-gcodeviewer div.plannerpause');
+                this.pauseBtnIcon = $('#com-chilipeppr-widget-gcodelog div.plannerpause');
 
             if (this.isPausedByPlanner) {
                 // we are currently paused, so calling onPause will unpause (as if the user was toggling
@@ -1154,8 +1154,8 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
             $('#com-chilipeppr-widget-gcode-body-2col').removeClass('hidden');
             $('#com-chilipeppr-widget-gcode-feedrate').removeClass('hidden');
             $('#com-chilipeppr-widget-gcode-footer').removeClass('hidden');
-            $('#com-chilipeppr-widget-gcodeviewer .hidebody span').addClass('glyphicon-chevron-up');
-            $('#com-chilipeppr-widget-gcodeviewer .hidebody span').removeClass('glyphicon-chevron-down');
+            $('#com-chilipeppr-widget-gcodelog .hidebody span').addClass('glyphicon-chevron-up');
+            $('#com-chilipeppr-widget-gcodelog .hidebody span').removeClass('glyphicon-chevron-down');
             if (!(evt == null)) {
                 this.options.showBody = true;
                 this.saveOptionsModal();
@@ -1167,8 +1167,8 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
             $('#com-chilipeppr-widget-gcode-body-2col').addClass('hidden');
             $('#com-chilipeppr-widget-gcode-feedrate').addClass('hidden');
             $('#com-chilipeppr-widget-gcode-footer').addClass('hidden');
-            $('#com-chilipeppr-widget-gcodeviewer .hidebody span').removeClass('glyphicon-chevron-up');
-            $('#com-chilipeppr-widget-gcodeviewer .hidebody span').addClass('glyphicon-chevron-down');
+            $('#com-chilipeppr-widget-gcodelog .hidebody span').removeClass('glyphicon-chevron-up');
+            $('#com-chilipeppr-widget-gcodelog .hidebody span').addClass('glyphicon-chevron-down');
             if (!(evt == null)) {
                 this.options.showBody = false;
                 this.saveOptionsModal();
@@ -1177,7 +1177,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
             $(window).trigger('resize');
         },
         forkSetup: function () {
-            var topCssSelector = '#com-chilipeppr-widget-gcodeviewer';
+            var topCssSelector = '#com-chilipeppr-widget-gcodelog';
             //$(topCssSelector + ' .fork').prop('href', this.fiddleurl);
             //$(topCssSelector + ' .standalone').prop('href', this.url);
             //$(topCssSelector + ' .fork-name').html(this.id);
@@ -1207,7 +1207,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
         setupResizeable: function () {
             //$( "#com-chilipeppr-widget-gcode-body" ).resizable({
             var that = this;
-            $("#com-chilipeppr-widget-gcodeviewer").resizable({
+            $("#com-chilipeppr-widget-gcodelog").resizable({
                 //alsoResize: "#com-chilipeppr-widget-gcode-body-2col > td:first"
                 alsoResize: "#com-chilipeppr-widget-gcode-body",
                 //ndex:1
@@ -1216,8 +1216,8 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
                 //maxHeight:1000,
                 resize: function (evt) {
                     console.log("resize resize", evt);
-                    //$( "#com-chilipeppr-widget-gcodeviewer" ).removeAttr("style");
-                    $("#com-chilipeppr-widget-gcodeviewer").css('height', 'initial');
+                    //$( "#com-chilipeppr-widget-gcodelog" ).removeAttr("style");
+                    $("#com-chilipeppr-widget-gcodelog").css('height', 'initial');
                     $('#com-chilipeppr-widget-gcode-body').css('width', 'initial');
                 },
                 start: function (evt) {
@@ -1225,8 +1225,8 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
                 },
                 stop: function (evt) {
                     console.log("resize stop", evt);
-                    //$( "#com-chilipeppr-widget-gcodeviewer" ).removeAttr("style");
-                    $("#com-chilipeppr-widget-gcodeviewer").css('height', 'initial');
+                    //$( "#com-chilipeppr-widget-gcodelog" ).removeAttr("style");
+                    $("#com-chilipeppr-widget-gcodelog").css('height', 'initial');
                     $('#com-chilipeppr-widget-gcode-body').css('width', 'initial');
                     // publish that we just resized ourselves in case any other widget cares
                     chilipeppr.publish("/" + that.id + "/resize", "");
@@ -1366,12 +1366,12 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
             //var offset = td.offset();
             var offset = td.position();
             var coordsEl = $(
-                    '<div class="com-chilipeppr-widget-gcodeviewer-coords-wrapper" style="left:' + (offset.left - 10) + 'px;top:' + offset.top + 'px;">' +
-                    '<div class="com-chilipeppr-widget-gcodeviewer-coords">' +
-                    '<div class="com-chilipeppr-widget-gcodeviewer-coords-start">' +
+                    '<div class="com-chilipeppr-widget-gcodelog-coords-wrapper" style="left:' + (offset.left - 10) + 'px;top:' + offset.top + 'px;">' +
+                    '<div class="com-chilipeppr-widget-gcodelog-coords">' +
+                    '<div class="com-chilipeppr-widget-gcodelog-coords-start">' +
                     '<span class="coords-lbl">Start</span><span class="coords-axis">X</span><span>' + x + '</span><span class="coords-axis">Y</span><span>' + y + '</span><span class="coords-axis">Z</span><span>' + z + '</span>' +
                     '</div>' +
-                    '<div class="com-chilipeppr-widget-gcodeviewer-coords-end">' +
+                    '<div class="com-chilipeppr-widget-gcodelog-coords-end">' +
                     '<span class="coords-lbl">End</span><span class="coords-axis">X</span><span>' + x2 + '</span><span class="coords-axis">Y</span><span>' + y2 + '</span><span class="coords-axis">Z</span><span>' + z2 + '</span>' +
                     '</div>' +
                     '<div class="btnMoveToThisPos">' +
@@ -1403,7 +1403,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
             coordsEl.on('mouseleave', function(evt) {
                 console.log("isInsideCoords mouseleave");
                 that.isInsideCoords = false;
-                $('.com-chilipeppr-widget-gcodeviewer-coords-wrapper').remove();
+                $('.com-chilipeppr-widget-gcodelog-coords-wrapper').remove();
                 that.isShowingCoords = false;
             });
 
@@ -1454,7 +1454,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
                         that.parseGcodeForDomElem(td, true);
 
                         // show xyz value
-                        $('.com-chilipeppr-widget-gcodeviewer-coords-wrapper').remove();
+                        $('.com-chilipeppr-widget-gcodelog-coords-wrapper').remove();
                         that.isShowingCoords = false;
                         that.showXyzCoordsForRow(td);
                     }
@@ -1467,7 +1467,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
                     /*
                      setTimeout(function() {
                      if (that.isShowingCoords && !that.isInsideCoords) {
-                     $('.com-chilipeppr-widget-gcodeviewer-coords-wrapper').remove();
+                     $('.com-chilipeppr-widget-gcodelog-coords-wrapper').remove();
                      that.isShowingCoords = false;
                      }
                      }, 5);
@@ -1479,11 +1479,11 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
             $('#com-chilipeppr-widget-gcode-tbl')
                 .on("mouseleave", function (evt) {
                     console.log("got mouseout on table");
-                    //$('.com-chilipeppr-widget-gcodeviewer-coords-wrapper').remove();
+                    //$('.com-chilipeppr-widget-gcodelog-coords-wrapper').remove();
                     //that.isShowingCoords = false;
                     setTimeout(function() {
                         if (that.isShowingCoords && !that.isInsideCoords) {
-                            $('.com-chilipeppr-widget-gcodeviewer-coords-wrapper').remove();
+                            $('.com-chilipeppr-widget-gcodelog-coords-wrapper').remove();
                             that.isShowingCoords = false;
                         }
                     }, 5);
@@ -3529,7 +3529,7 @@ cpdefine("inline:com-chilipeppr-widget-gcode", ["chilipeppr_ready", "waypoints",
                     if (remainMins > 0) {
                         str = this.toHHMMSS(remainMins * 60); // expect seconds
                     }
-                    $('#com-chilipeppr-widget-gcodeviewer #gcode-time-estremain').text(str);
+                    $('#com-chilipeppr-widget-gcodelog #gcode-time-estremain').text(str);
                 }
             }
         }

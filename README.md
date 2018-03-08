@@ -162,14 +162,14 @@ if ('p2' in lastLine && 'timeMinsSum' in lastLine.p2) {
 console.log("we got a timeMinsSum:", lastLine.p2.timeMinsSum);
 var estDurMins = lastLine.p2.timeMinsSum;
 var str = this.toHHMMSS(estDurMins * 60); // expect seconds
-$('#com-chilipeppr-widget-gcodeviewer #gcode-time-est').text(str);
+$('#com-chilipeppr-widget-gcodelog #gcode-time-est').text(str);
 }
 }
 });
 },
 setupStatusSteps: function() {
 var html = 
-"<div id=\"com-chilipeppr-widget-gcodeviewer-popover-steps\" >Your Gcode moves through 5 steps from ChiliPeppr all the way through execution." +
+"<div id=\"com-chilipeppr-widget-gcodelog-popover-steps\" >Your Gcode moves through 5 steps from ChiliPeppr all the way through execution." +
 "<table class=\"table table-condensed table-striped\"><tr><th>Step&nbsp;</th><th>Status</th><th>Description</th></tr>" + 
 "<tr><td>1</td><td><span class=\"glyphicon glyphicon-ok gcode-sent\"></span> Sent</td><td>Your Gcode has been sent to the Serial Port JSON Server by the Serial Port Widget.</td></tr>" + 
 "<tr><td>2</td><td><span class=\"glyphicon glyphicon-ok gcode-queued\"></span> Queued</td><td>Gcode is queued inside the Serial Port JSON Server and waiting to be sent to the CNC controller's serial buffer.</td></tr>" + 
@@ -178,7 +178,7 @@ var html =
 "<tr><td>5</td><td><span class=\"glyphicon glyphicon-ok gcode-executed\"></span> Executed</td><td>Optional. The CNC controller tells us that your Gcode was actually executed. This is the final step. On controllers like TinyG this data only comes back if line numbers are in your Gcode.</td></tr>" +
 "<tr><td>6</td><td><span class=\"glyphicon glyphicon-ok gcode-error\"></span> Error/Unsupported Command</td><td>Optional. The CNC controller failed to execute the line of gcode.  This could indicate a problem with your gcode syntax, or that your CNC controller does not understand a particular gcode command.</td></tr>" +
 "</table></div>";
-$("#com-chilipeppr-widget-gcodeviewer .stats-hdr").popover({
+$("#com-chilipeppr-widget-gcodelog .stats-hdr").popover({
 content: html
 })
 .on("show.bs.popover", function(){ $(this).data("bs.popover").tip().css("max-width", "600px"); });
